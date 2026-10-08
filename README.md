@@ -35,3 +35,10 @@ To configure and build the project using CMake, run:
 ```bash
 cmake --build build
 ```
+
+```bash
+cmake --list-presets
+cmake --workflow --preset msvc-release      # Windows
+cmake --workflow --preset gcc-release       # Linux
+cmake --preset clang-debug && cmake --build --preset clang-debug
+```

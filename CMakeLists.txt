@@ -4,19 +4,27 @@ cmake_minimum_required(VERSION 3.30)
 # Project / Package metadata
 #=============================
 
-set(CTRLWORK_PACKAGE_NAME "ctrlwork")
+set(CTRLWORK_PACKAGE_NAME "CtrlWork")
 set(CTRLWORK_VERSION_MAJOR 0)
 set(CTRLWORK_VERSION_MINOR 0)
 set(CTRLWORK_VERSION_BUILD 1)
 set(CTRLWORK_DESCRIPTION "")
 
-project(BreadProject
+project(CtrlWork
     VERSION ${CTRLWORK_VERSION_MAJOR}.${CTRLWORK_VERSION_MINOR}.${CTRLWORK_VERSION_BUILD}
     DESCRIPTION CTRLWORK_DESCRIPTION
     LANGUAGES CXX C
 )
 
 set(CTRLWORK_VERSION_STRING ${PROJECT_VERSION})
+
+if(PROJECT_IS_TOP_LEVEL AND CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
+    message(
+        FATAL_ERROR
+        "In-source builds are not allowed. Use: cmake --preset <name>"
+    )
+endif()
+
 
 #=============================
 # Language setup
@@ -36,10 +44,13 @@ include(GNUInstallDirs)
 
 string(COMPARE EQUAL ${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR} PROJECT_IS_TOP_LEVEL)
 
-option(CTRLWORK_BUILD "Build." OFF)
-option(CTRLWORK_BUILD_TESTS "Tests." OFF)
-option(CTRLWORK_BUILD_EXAMPLES "Examples." OFF)
-option(CTRLWORK_INSTALL "Install." ${PROJECT_IS_TOP_LEVEL})
+option(CTRLWORK_BUILD "Build ctrlwork targets." ON)
+cmake_dependent_option(CTRLWORK_BUILD_TESTS
+    "Build tests."    ${PROJECT_IS_TOP_LEVEL} "CTRLWORK_BUILD" OFF)
+cmake_dependent_option(CTRLWORK_BUILD_EXAMPLES
+    "Build examples." ${PROJECT_IS_TOP_LEVEL} "CTRLWORK_BUILD" OFF)
+option(CTRLWORK_INSTALL "Generate install rules." ${PROJECT_IS_TOP_LEVEL})
+
 
 if(NOT DEFINED CMAKE_BUILD_TYPE AND NOT DEFINED CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
@@ -59,6 +70,8 @@ set(CMAKE_VISIBILITY_INLINES_HIDDEN ON)
 #=============================
 
 if (CTRLWORK_BUILD)
+    include(CtrlworkTargetDefaults)
+
     add_subdirectory(src)
 endif()
 

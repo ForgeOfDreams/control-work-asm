@@ -1,0 +1,8 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+# find_dependency(Foo REQUIRED)   # add here every PUBLIC third-party dependency
+
+include("${CMAKE_CURRENT_LIST_DIR}/@CTRLWORK_PACKAGE_NAME@Targets.cmake")
+
+check_required_components(@CTRLWORK_PACKAGE_NAME@)
