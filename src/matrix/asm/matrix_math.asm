@@ -5,7 +5,7 @@
 ; формат файла, секции и регистры аргументов приходят из ctrlwork_abi.inc.
 ; Из регистров используются только те, что:
 ;   - свободны для функции в обоих ABI: RAX RCX RDX R8-R11
-;   - сохраняются вызываемой функцией в обоих ABI: RBX R12-R15 (push/pop там, где нужны)
+;   - сохраняются вызываемой функцией в обоих ABI: RBX R12-R15
 ; RSI/RDI не трогаем: в Win64 они callee-saved.
 ; =========================================================================================
 include 'ctrlwork_abi.inc'
@@ -15,7 +15,7 @@ ASM_SUCCESS                 = 0
 ASM_ERR_DIMENSION_MISMATCH  = 1
 ASM_ERR_NULL_POINTER        = 2
 
-; Раскладка MatrixView (C++ обязан проверить это через static_assert + offsetof)
+; Раскладка MatrixView
 ;   struct MatrixView { int32_t* data; uint64_t rows; uint64_t cols; };
 MV_DATA = 0
 MV_ROWS = 8
@@ -39,7 +39,7 @@ cw_text
 ; Ошибки уходят на общие метки в конце файла; стек на этот момент не изменён.
 ; -----------------------------------------------------------------------------------------
 macro MATRIX_ELEMENTWISE_PROLOGUE {
-    mov r10, arg1                               ; A (копируем сразу: в Win64 arg-регистры = наши временные)
+    mov r10, arg1                               ; A (копируем сразу: в Win64 arg-регистры = временные)
     mov r11, arg2                               ; B
     mov rax, arg3                               ; C
     test r10, r10

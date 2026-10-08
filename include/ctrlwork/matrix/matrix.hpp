@@ -64,4 +64,4 @@ public:
 
 } // namespace ctrlwork::matrix
 
-#endif // CONTROL_WORK_MATRIX_MATRIX_HPP
+#endif // CTRLWORK_MATRIX_MATRIX_HPP
