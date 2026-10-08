@@ -1,0 +1,170 @@
+# ============================================================================
+# .gitattributes for C++23 projects
+# ============================================================================
+# This file ensures consistent line endings, correct diff drivers,
+# proper handling of binary files, and accurate language statistics on GitHub.
+# It is designed for modern C++ projects using CMake, modules, and third‑party dependencies.
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Core settings
+# ----------------------------------------------------------------------------
+
+# Automatically normalize line endings for all text files.
+# Git will convert CRLF to LF when adding to the index (repository).
+# Checkouts preserve the OS‑native line endings unless overridden.
+* text=auto
+
+# ----------------------------------------------------------------------------
+# C++ source and header files
+# ----------------------------------------------------------------------------
+# Explicitly mark all common C++ extensions as text and use the C++ diff driver.
+# The C++ diff driver improves hunk headers (shows function names) and ignores
+# whitespace changes in a language‑aware way.
+
+*.c      text diff=cpp
+*.cc     text diff=cpp
+*.cpp    text diff=cpp
+*.cxx    text diff=cpp
+*.c++    text diff=cpp
+*.h      text diff=cpp
+*.hh     text diff=cpp
+*.hpp    text diff=cpp
+*.hxx    text diff=cpp
+*.h++    text diff=cpp
+*.inl    text diff=cpp   # Inline implementation files
+*.ipp    text diff=cpp   # Inline function definitions
+*.tpp    text diff=cpp   # Template implementation files
+*.txx    text diff=cpp
+
+# ----------------------------------------------------------------------------
+# C++20/23 module interface files (`.cppm`, `.ixx`)
+# ----------------------------------------------------------------------------
+# Module files are text and benefit from the C++ diff driver.
+# They contain `export module ...` declarations.
+
+*.cppm   text diff=cpp
+*.ixx    text diff=cpp
+
+# ----------------------------------------------------------------------------
+# Build system & configuration files
+# ----------------------------------------------------------------------------
+# CMake files are text; use the `cmake` diff driver if available.
+*.cmake  text diff=cmake
+CMakeLists.txt text diff=cmake
+
+# JSON, YAML, XML, TOML – common configuration formats
+*.json   text
+*.yaml   text
+*.yml    text
+*.xml    text
+*.toml   text
+
+# Plain text files
+*.txt    text
+*.in     text        # Input files for configure_file() in CMake
+*.md     text        # Markdown documentation
+*.rst    text        # reStructuredText
+
+# ----------------------------------------------------------------------------
+# Script files – enforce specific line endings for portability
+# ----------------------------------------------------------------------------
+# Shell scripts must use LF (even on Windows checkouts)
+*.sh     text eol=lf
+
+# Windows batch files must use CRLF
+*.bat    text eol=crlf
+*.cmd    text eol=crlf
+
+# PowerShell scripts: UTF-8 with CRLF is typical on Windows
+*.ps1    text eol=crlf
+
+# Python, Perl, Ruby – keep repository LF; local checkouts convert to native
+*.py     text
+*.pl     text
+*.rb     text
+
+# ----------------------------------------------------------------------------
+# Binary files – never convert line endings, suppress diffs
+# ----------------------------------------------------------------------------
+# Images
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.bmp    binary
+*.svg    text diff=svg   # SVG is XML‑based, can be diffed as text
+
+# Fonts
+*.ttf    binary
+*.otf    binary
+*.woff   binary
+*.woff2  binary
+
+# Documents (prevent accidental corruption)
+*.pdf    binary
+*.doc    binary
+*.docx   binary
+*.xls    binary
+*.xlsx   binary
+*.ppt    binary
+*.pptx   binary
+
+# Archives
+*.zip    binary
+*.tar    binary
+*.tgz    binary
+*.gz     binary
+*.xz     binary
+*.bz2    binary
+*.7z     binary
+
+# Object files, libraries, executables (generated artifacts)
+*.o      binary
+*.obj    binary
+*.lib    binary
+*.a      binary
+*.so     binary
+*.dylib  binary
+*.dll    binary
+*.exe    binary
+
+# Debug symbols and core dumps
+*.pdb    binary
+*.dbg    binary
+*.dmp    binary
+core      binary
+*.core    binary
+
+# ----------------------------------------------------------------------------
+# GitHub Linguist overrides (improves language statistics)
+# ----------------------------------------------------------------------------
+# Treat third‑party / vendored code as not belonging to the project.
+# This prevents Boost, Google Test, Catch2, etc. from skewing the language bar.
+third_party/*    linguist-vendored
+vendor/*         linguist-vendored
+libs/*           linguist-vendored
+
+# Mark generated files (e.g., from code generators or protobuf) as generated.
+generated/*      linguist-generated=true
+build/*          linguist-vendored
+out/*            linguist-vendored
+
+# Documentation and examples are not part of the main codebase statistics.
+docs/*           linguist-documentation
+examples/*       linguist-documentation
+
+# ----------------------------------------------------------------------------
+# Whitespace handling (visible to Git commands like `git diff --check`)
+# ----------------------------------------------------------------------------
+# Warn about trailing spaces and spaces before tabs in all text files.
+* whitespace=trailing-space,space-before-tab
+
+# ----------------------------------------------------------------------------
+# Custom diff drivers (optional)
+# ----------------------------------------------------------------------------
+# Git can use external tools for better diff output.
+# Uncomment if you have `git-diff-cmake` or similar installed.
+# *.cmake   diff=cmake
+# CMakeLists.txt diff=cmake
