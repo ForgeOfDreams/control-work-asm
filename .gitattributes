@@ -94,7 +94,7 @@ CMakeLists.txt text diff=cmake
 *.gif    binary
 *.ico    binary
 *.bmp    binary
-*.svg    text diff=svg   # SVG is XML‑based, can be diffed as text
+*.svg    text diff=svg   # SVG is XML‑based can be diffed as text
 
 # Fonts
 *.ttf    binary
