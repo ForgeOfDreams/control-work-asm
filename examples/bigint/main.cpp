@@ -22,8 +22,8 @@ int main() {
     using ctrlwork::AsmStatus;        // код ошибки ядра
     using ctrlwork::bigint::BigInt;   // основной тип
 
-    BigInt factorial = 1;                                           // 30! считаем умножением
-    for (int i = 2; i <= 30; ++i) {                                 // 2 * 3 * ... * 30
+    BigInt factorial = 1;                                          // 30! считаем умножением
+    for (int i = 2; i <= 30; ++i) {                                // 2 * 3 * ... * 30
         factorial *= i;                                         // целые приводятся к BigInt неявно
     }
     expect(factorial.to_string() == "265252859812191058636308480000000", "30! (multiplication, output)");
@@ -33,7 +33,7 @@ int main() {
         power += power;                                         // сложение с переносом между лимбами
     }
     expect(power.to_string() == "340282366920938463463374607431768211456", "2^128 (addition with carry)");
-    expect(power.limb_count() == 3, "2^128 occupies 3 limbs.");                     // 2^128 = единица в третьем лимбе
+    expect(power.limb_count() == 3, "2^128 occupies 3 limbs.");                    // 2^128 = единица в третьем лимбе
 
     const BigInt ten19("10000000000000000000");                                     // ввод из десятичной строки
     const auto parts = BigInt::divmod(power, ten19);          // деление без исключений
