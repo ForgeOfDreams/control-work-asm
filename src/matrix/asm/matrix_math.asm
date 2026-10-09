@@ -150,7 +150,7 @@ asm_matrix_mul:
 
     mov r12, [r10 + MV_COLS]                    ; R12 = K
     mov r13, [r11 + MV_COLS]                    ; R13 = N
-    mov r11, [r10 + MV_ROWS]                    ; R11 = M (B-дескриптор больше не нужен)
+    mov r11, [r10 + MV_ROWS]                    ; R11 = M
                                                 ; RAX, R10 теперь свободные временные
 
     xor r14d, r14d                              ; i = 0

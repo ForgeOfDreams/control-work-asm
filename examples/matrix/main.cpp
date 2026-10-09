@@ -58,7 +58,7 @@ int main() {
     expect((empty + empty).empty(), "empty + empty");           // пустые матрицы допустимы
 
     product.print("A * B");                                         // красивый вывод
-    std::cout << (failures == 0 ? "All checks passed" : "Some checks FAILED") << '\n';
+    std::cout << (failures == 0 ? "All checks passed" : "Some checks FAILED") << std::endl;
 
     return failures == 0 ? 0 : 1;                                       // код для ctest
 }

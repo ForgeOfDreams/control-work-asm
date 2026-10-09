@@ -1,10 +1,7 @@
 #ifndef CTRLWORK_HPP
 #define CTRLWORK_HPP
 
-namespace ctrlwork {
-
-
-
-} // namespace ctrlwork
+#include "ctrlwork/matrix/matrix.hpp"
+#include "ctrlwork/bigint/bigint.hpp"
 
 #endif // CTRLWORK_HPP
